@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body style="background:#e0f7fa; font-family: sans-serif; text-align:center; padding:50px;">
+
+    <div id="babak1">
+        <h1>🐯 Hutan Ajaib 🌳</h1>
+        <p>Anda sedang berjalan di hutan. Tiba-tiba nampak dua jalan.</p>
+        <p>Ibu tanya: "Kita nak ikut kiri ke kanan?"</p>
+        <br>
+        <button onclick="pergi('babak2')" style="font-size:20px; padding:10px;">⬅️ Jalan Gelap (Gua)</button>
+        <button onclick="pergi('babak3')" style="font-size:20px; padding:10px;">➡️ Jalan Terang (Sungai)</button>
+    </div>
+
+    <div id="babak2" style="display:none;">
+        <h1>🦇 Masuk Gua!</h1>
+        <p>Gelapnya! Ada bunyi kelawar.. Sreet! Sreet!</p>
+        <button onclick="pergi('babak1')">Lari balik!</button>
+        <button onclick="alert('Yay jumpa harta karun!')">Nyalakan Obor 🔥</button>
+    </div>
+
+    <div id="babak3" style="display:none;">
+        <h1>🌊 Sungai Jernih</h1>
+        <p>Ada ikan melompat-lompat. Nak tangkap tak?</p>
+        <button onclick="alert('Dapat Ikan Emas! 🐟 +10 Poin')">Tangkap Ikan</button>
+    </div>
+
+    <script>
+        function pergi(idBabak) {
+            // Sorok semua babak
+            document.getElementById('babak1').style.display = 'none';
+            document.getElementById('babak2').style.display = 'none';
+            document.getElementById('babak3').style.display = 'none';
+            
+            // Tunjuk babak yang dipilih
+            document.getElementById(idBabak).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
