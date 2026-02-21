@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Super Family Game</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif; }
+        .container { display: flex; height: 90vh; } /* Tinggi 90% sebab 10% untuk menu */
+        .video-box { flex: 1; border-right: 5px solid #333; background: #000; }
+        .game-box { flex: 2; background: #f0f0f0; display: flex; flex-direction: column;}
+        iframe { width: 100%; height: 100%; border: none; flex-grow: 1;}
+        
+        /* Menu Game */
+        .game-menu {
+            height: 50px;
+            background: #2c3e50;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .menu-btn {
+            background: #f1c40f;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .menu-btn:hover { background: #f39c12; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="video-box" id="videoContainer"></div>
+
+        <div class="game-box">
+            <div class="game-menu">
+                <button class="menu-btn" onclick="tukarGame('LUKIS')">🎨 Melukis</button>
+                <button class="menu-btn" onclick="tukarGame('PUZZLE')">🧩 Puzzle</button>
+                <button class="menu-btn" onclick="tukarGame('CERITA')">🐯 Cerita</button>
+                <button class="menu-btn" onclick="tukarGame('HADIAH')">🏆 Hadiah</button>
+            </div>
+            <iframe id="gameFrame" src=""></iframe>
+        </div>
+    </div>
+
+    <script src='https://meet.jit.si/external_api.js'></script>
+    <script>
+        // Setup Video Jitsi (Auto Start)
+        const domain = 'meet.jit.si';
+        // Kita set nama bilik siap-siap supaya tak payah taip setiap kali (boleh tukar nama 'KeluargaBahagia' ni)
+        const roomName = "KeluargaBahagia_" + Math.floor(Math.random() * 100); 
+        
+        const options = {
+            roomName: roomName,
+            parentNode: document.querySelector('#videoContainer'),
+            configOverwrite: { startWithAudioMuted: false },
+             interfaceConfigOverwrite: { TOOLBAR_BUTTONS: ['microphone', 'camera'] }
+        };
+        const api = new JitsiMeetExternalAPI(domain, options);
+
+        // Fungsi Tukar Game
+        function tukarGame(jenis) {
+            var frame = document.getElementById('gameFrame');
+            
+            if(jenis === 'LUKIS') {
+                frame.src = "https://witeboard.com/" + roomName + "_Lukisan";
+            } 
+            else if(jenis === 'PUZZLE') {
+                // Trik: Guna web puzzle sedia ada
+                frame.src = "https://jigsawpuzzles.io/"; 
+            }
+            else if(jenis === 'CERITA') {
+                frame.src = "cerita.html"; // Pastikan awak dah buat fail cerita.html
+            }
+            else if(jenis === 'HADIAH') {
+                frame.src = "hadiah.html"; // Pastikan awak dah buat fail hadiah.html
+            }
+        }
+
+        // Mula dengan melukis
+        tukarGame('LUKIS');
+    </script>
+</body>
+</html>
