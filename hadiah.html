@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body style="background:#fff0f5; font-family: sans-serif; text-align:center;">
+    <h1>🏆 Buku Sticker Adik 🏆</h1>
+    <p>Kumpul sticker untuk dapat hadiah misteri dari Ayah!</p>
+    
+    <div style="border: 2px dashed #ff69b4; padding: 20px; margin: 20px;">
+        <h3>Masukkan Kod Rahsia:</h3>
+        <input type="text" id="kodRahsia" placeholder="Contoh: RAJIN">
+        <button onclick="tebus()">TEBUS!</button>
+    </div>
+
+    <div id="koleksi" style="font-size: 50px;">
+        </div>
+
+    <script>
+        function tebus() {
+            var kod = document.getElementById('kodRahsia').value.toUpperCase();
+            var tempatSticker = document.getElementById('koleksi');
+
+            if(kod === "PANDAI") {
+                tempatSticker.innerHTML += "⭐ ";
+                alert("Wah! Dapat Bintang!");
+            } else if (kod === "SAYANG") {
+                tempatSticker.innerHTML += "❤️ ";
+                alert("Dapat Love!");
+            } else if (kod === "KUAT") {
+                tempatSticker.innerHTML += "🦁 ";
+                alert("Dapat Singa!");
+            } else {
+                alert("Salah kod tu.. Cuba tanya Ayah balik?");
+            }
+            
+            // Kosongkan kotak
+            document.getElementById('kodRahsia').value = "";
+        }
+    </script>
+</body>
+</html>
