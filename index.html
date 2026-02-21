@@ -6,10 +6,12 @@
     <title>Super Family Game</title>
     <style>
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif; }
-        .container { display: flex; height: 90vh; } /* Tinggi 90% sebab 10% untuk menu */
+        .container { display: flex; height: 90vh; } 
         .video-box { flex: 1; border-right: 5px solid #333; background: #000; }
         .game-box { flex: 2; background: #f0f0f0; display: flex; flex-direction: column;}
-        iframe { width: 100%; height: 100%; border: none; flex-grow: 1;}
+        
+        /* Iframe untuk video dan game */
+        .full-iframe { width: 100%; height: 100%; border: none; flex-grow: 1;}
         
         /* Menu Game */
         .game-menu {
@@ -33,7 +35,9 @@
 <body>
 
     <div class="container">
-        <div class="video-box" id="videoContainer"></div>
+        <div class="video-box">
+            <iframe id="videoFrame" class="full-iframe" allow="camera; microphone; fullscreen; display-capture"></iframe>
+        </div>
 
         <div class="game-box">
             <div class="game-menu">
@@ -42,26 +46,18 @@
                 <button class="menu-btn" onclick="tukarGame('CERITA')">🐯 Cerita</button>
                 <button class="menu-btn" onclick="tukarGame('HADIAH')">🏆 Hadiah</button>
             </div>
-            <iframe id="gameFrame" src=""></iframe>
+            <iframe id="gameFrame" class="full-iframe" src=""></iframe>
         </div>
     </div>
 
-    <script src='https://meet.jit.si/external_api.js'></script>
     <script>
-        // Setup Video Jitsi (Auto Start)
-        const domain = 'meet.jit.si';
-        // Kita set nama bilik siap-siap supaya tak payah taip setiap kali (boleh tukar nama 'KeluargaBahagia' ni)
-        const roomName = "KeluargaBahagia_" + Math.floor(Math.random() * 100); 
-        
-        const options = {
-            roomName: roomName,
-            parentNode: document.querySelector('#videoContainer'),
-            configOverwrite: { startWithAudioMuted: false },
-             interfaceConfigOverwrite: { TOOLBAR_BUTTONS: ['microphone', 'camera'] }
-        };
-        const api = new JitsiMeetExternalAPI(domain, options);
+        // Minta nama bilik bila buka web
+        const roomName = prompt("Masukkan Nama Bilik Rahsia (Contoh: KeluargaAli):") || "BilikTest";
 
-        // Fungsi Tukar Game
+        // Setup Video guna MiroTalk (Masukkan nama bilik terus ke link)
+        document.getElementById('videoFrame').src = "https://p2p.mirotalk.com/join/" + roomName;
+
+        // Fungsi Tukar Game di kanan
         function tukarGame(jenis) {
             var frame = document.getElementById('gameFrame');
             
@@ -69,18 +65,17 @@
                 frame.src = "https://witeboard.com/" + roomName + "_Lukisan";
             } 
             else if(jenis === 'PUZZLE') {
-                // Trik: Guna web puzzle sedia ada
                 frame.src = "https://jigsawpuzzles.io/"; 
             }
             else if(jenis === 'CERITA') {
-                frame.src = "cerita.html"; // Pastikan awak dah buat fail cerita.html
+                frame.src = "cerita.html"; 
             }
             else if(jenis === 'HADIAH') {
-                frame.src = "hadiah.html"; // Pastikan awak dah buat fail hadiah.html
+                frame.src = "hadiah.html"; 
             }
         }
 
-        // Mula dengan melukis
+        // Auto-mula dengan melukis
         tukarGame('LUKIS');
     </script>
 </body>
